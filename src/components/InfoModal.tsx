@@ -8,37 +8,59 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-  useDisclosure,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { useOneCharacter } from "../hooks/useHttpData";
+import { InfoCharacter } from "../types";
+import Carousel from "./Carousel";
 
-function InfoModal() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+type Props = {
+  personaje: number;
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+};
 
-  return (
-    <>
-      <Button onClick={onOpen}>Open Modal</Button>
+function InfoModal({ personaje, isOpen, onOpen, onClose }: Props) {
+  const { data } = useOneCharacter<InfoCharacter>(personaje);
+  console.log(data);
 
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Text fontWeight="bold" mb="1rem">
-              You can scroll the content behind the modal
-            </Text>
-            jio
-          </ModalBody>
+  useEffect(() => {
+    if (isOpen) {
+      onOpen();
+    }
+  }, [onOpen, isOpen]);
 
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
-  );
+  if (isOpen && data) {
+    return (
+      <>
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>{data?.name}</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Carousel
+                images={data.transformations}
+                firsImage={data.image}
+                firstName={data.name}
+                firstKi={data.ki}
+              />
+              <Text fontWeight="bold" mb="1rem" mt={4}>
+                {data.description}
+              </Text>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </>
+    );
+  }
 }
 
 export default InfoModal;

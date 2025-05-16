@@ -8,16 +8,28 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { InfoCharacter } from "../types";
 
-function CardInfo() {
+type Props = {
+  item: InfoCharacter;
+  setPersonaje: (id: number) => void;
+  onOpen: () => void;
+};
+
+function CardInfo({ item, setPersonaje, onOpen }: Props) {
   return (
-    <Card maxW="lg" mt={7} >
+    <Card w="100%" mt={7} >
       <CardBody>
         <Image
-          src="https://dragonball-api.com/characters/goku_normal.webp"
-          alt="Green double couch with wooden legs"
+          onClick={() => {
+            setPersonaje(item.id);
+            onOpen();
+          }}
+          src={item.image}
+          alt={item.name}
           h={"400px"}
           transition="0.5s ease"
+          m={"auto"}
           _hover={{
             transform: "scale(1.1)", // agrandar
             cursor: "pointer",
@@ -25,33 +37,41 @@ function CardInfo() {
         />
         <Stack mt="6" spacing="3">
           <Heading size="lg">
-            Goku{" "}
+            {item.name}
             <Text fontSize={"xl"} color={"yellow.300"}>
-              Saiyan - Male
+              {item.race} - {item.gender}
             </Text>
           </Heading>
           <Heading size="md">
             Base KI{" "}
             <Text fontSize={"lg"} color={"yellow.300"}>
-              60.000.000
+              {item.ki}
             </Text>
           </Heading>
           <Heading size="md">
             Total KI{" "}
             <Text fontSize={"lg"} color={"yellow.300"}>
-              90 Septillion
+              {item.maxKi}
             </Text>
           </Heading>
           <Heading size="md">
             Afilliaton{" "}
             <Text fontSize={"lg"} color={"yellow.300"}>
-              Z Fighter
+              {item.affiliation}
             </Text>
           </Heading>
         </Stack>
       </CardBody>
       <CardFooter>
-        <Button w={"100%"} variant="solid" colorScheme="blue">
+        <Button
+          onClick={() => {
+            setPersonaje(item.id);
+            onOpen();
+          }}
+          w={"100%"}
+          variant="solid"
+          colorScheme="blue"
+        >
           See more
         </Button>
       </CardFooter>
