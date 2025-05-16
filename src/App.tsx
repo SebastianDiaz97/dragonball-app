@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Container, SimpleGrid } from "@chakra-ui/react";
+import CardInfo from "./components/CardInfo";
+import Header from "./components/Header";
+import SearchForm from "./components/SearchForm";
+import InfoModal from "./components/InfoModal";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Container p={4} maxW="container.xl" mx="auto">
+        <Header />
+        <SearchForm />
+
+        <SimpleGrid
+          spacing={4}
+          templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+        >
+          <CardInfo></CardInfo>
+          <CardInfo></CardInfo>
+          <CardInfo></CardInfo>
+          <CardInfo></CardInfo>
+          <CardInfo></CardInfo>
+          <CardInfo></CardInfo>
+        </SimpleGrid>
+
+        <InfoModal></InfoModal>
+      </Container>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
