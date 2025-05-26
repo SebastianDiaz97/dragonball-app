@@ -59,10 +59,10 @@ function Carousel({ images, firsImage, firstName, firstKi }: Props) {
           w="full"
           px={4}
         >
-          <Button onClick={prevSlide} colorScheme="teal" size="sm">
+          <Button onClick={prevSlide} bg={'transparent'} size="lg">
             ◀
           </Button>
-          <Button onClick={nextSlide} colorScheme="teal" size="sm">
+          <Button onClick={nextSlide} bg={'transparent'} size="lg">
             ▶
           </Button>
         </Flex>

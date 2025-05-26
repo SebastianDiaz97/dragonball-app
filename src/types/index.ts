@@ -14,6 +14,15 @@ export type InfoCharacter = {
     affiliation: string
     description: string,
     transformations: Transformations[]
+    originPlanet: OriginPlanet
+}
+
+type OriginPlanet = {
+    name: string,
+    image: string
+    description: string
+    isDestroyed: boolean
+
 }
 
 export type Transformations = {

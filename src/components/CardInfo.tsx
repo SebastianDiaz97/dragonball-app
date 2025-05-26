@@ -9,6 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { InfoCharacter } from "../types";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   item: InfoCharacter;
@@ -16,14 +17,16 @@ type Props = {
   onOpen: () => void;
 };
 
-function CardInfo({ item, setPersonaje, onOpen }: Props) {
+function CardInfo({ item, setPersonaje }: Props) {
+  const navigate = useNavigate();
   return (
-    <Card w="100%" mt={7} >
+    <Card w="100%" mt={7}>
       <CardBody>
         <Image
           onClick={() => {
             setPersonaje(item.id);
-            onOpen();
+            // onOpen();
+            navigate(`/details/${item.id}`);
           }}
           src={item.image}
           alt={item.name}
@@ -66,7 +69,8 @@ function CardInfo({ item, setPersonaje, onOpen }: Props) {
         <Button
           onClick={() => {
             setPersonaje(item.id);
-            onOpen();
+            // onOpen();
+            navigate(`/details/${item.id}`);
           }}
           w={"100%"}
           variant="solid"
